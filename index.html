@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>KemasanCraft</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script>
+
+		// 🟢 Fungsi baru untuk update harga otomatis
+		function updateHargaPerKemasan() {
+ 			const ukuran = document.getElementById("ukuranKardus").value;
+ 			const hargaInput = document.getElementById("bahan");
+  			let harga = 0;
+
+  			// Atur harga sesuai ukuran
+  			if (ukuran.includes("Single Wall")) harga = 1500;
+  			else if (ukuran.includes("Double Wall")) harga = 3500;
+ 			 // Masukkan harga otomatis
+  			hargaInput.value = harga;
+		}
+
+		function updateUkuran() {
+  			const jenis = document.getElementById("jenisKardus").value;
+ 		 	const ukuranSelect = document.getElementById("ukuranKardus");
+
+ 			ukuranSelect.innerHTML = '<option value="">-- Pilih Ukuran Kardus --</option>';
+
+ 			 let ukuranList = [];
+
+  			// Daftar ukuran sesuai jenis
+  			if (jenis === "lembaran") {
+  			  ukuranList = ["Single Wall [ 60×40 cm ]", "Double Wall [ 120x60 cm ]"];
+  			} else if (jenis === "shipping") {
+   			  ukuranList = ["20x20x20 cm", "30x30x30 cm", "40x40x40 cm"];
+ 			} else if (jenis === "arsip") {
+    		  ukuranList = ["25x35x10 cm", "30x40x15 cm"];
+ 		    }
+
+  			// Masukkan opsi ke dropdown ukuran
+  			ukuranList.forEach(ukuran => {
+   				 const option = document.createElement("option");
+   				 option.value = ukuran;
+   				 option.textContent = ukuran;
+    			 ukuranSelect.appendChild(option);
+  			});
+
+  			// perinta untuk menanampilkan
+ 			ukuranSelect.addEventListener("change", updateHargaPerKemasan);
+		}
+
+		function updateBiayaKirim() {
+  			const tujuan = document.getElementById("tujuan").value;
+  			let biaya = 0;
+
+  		// Biaya otomatis berdasarkan kota
+  			if (tujuan === "tangerang") biaya = 20000;
+  				else if (tujuan === "jakarta") biaya = 50000;
+  				else if (tujuan === "bandung") biaya = 80000;
+  				else if (tujuan === "surabaya") biaya = 120000;
+
+  		// Isi otomatis ke input biaya pengiriman
+  			document.getElementById("biayapengiriman").value = biaya;
+		}
+
+
+
+		function hitungHarga() {
+ 			let jumlah = parseFloat(document.getElementById("jumlah").value) || 1;
+  			let bahan = parseFloat(document.getElementById("bahan").value) || 0;
+  			let biayapengiriman = parseFloat(document.getElementById("biayapengiriman").value) || 0;
+
+  			let total = (jumlah*bahan)+biayapengiriman;
+  			let perKemasan = total / jumlah;
+
+  			document.getElementById("hasil").innerHTML = `
+    		<p><strong>Total Biaya:</strong> Rp ${total.toLocaleString()}</p>`;
+}
+
+
+function cetakInvoice() {
+  const hasil = document.getElementById("hasil").innerHTML;
+  const jendelaCetak = window.open('', '', 'width=600,height=700');
+  jendelaCetak.document.write(`
+    <html>
+      <head>
+        <title>Invoice Pesanan</title>
+        <style>
+          body { font-family: Arial; padding: 20px; }
+          h2 { text-align: center; color: #d71920; }
+          hr { border: 1px solid #ccc; }
+          p { line-height: 1.5; }
+          .footer { margin-top: 30px; font-size: 12px; text-align: center; color: gray; }
+        </style>
+      </head>
+      <body>
+        <h2>KemasanCraft - Invoice Pesanan</h2>
+        <hr>
+        ${hasil}
+        <div class="footer">
+          <p>Terima kasih telah memesan di KemasanCraft.</p>
+          <p>Tanggal Cetak: ${new Date().toLocaleDateString('id-ID')}</p>
+        </div>
+      </body>
+    </html>
+  `);
+  jendelaCetak.document.close();
+  jendelaCetak.print();
+}
+
+
+</script>
+</head>
+<body id="home">
+	<header>
+		<div class="kontak-atas">
+
+			<div class="item-kiri">
+				
+			<div class="class-wa">	
+				<img src="wa.png">
+				<h5>Call Us : 085601816461</h5>
+			</div>
+
+			<div class="class-lokasi">	
+				<img src="lokasi.png">
+				<h5>Cikokol - Tangerang</h5>
+			</div>
+
+			<div class="class-brand">	
+				<img src="dropbox.png">
+				<h5>Kemasan yang membangun<br>Nilai Produk-Mu</h5>
+			</div>
+
+			</div>
+
+			<div class="item-kanan">
+
+			<div class="Sosial-Media">
+				<h5>Follow Social Media :</h5>	
+				<img src="instagram.png">
+				<img src="facebook.png">
+				<img src="telegram.png">
+				<img src="youtube.png">
+			</div>
+
+			</div>
+
+		</div>
+
+		<div class="layout-logo-kemasancraft">
+			<div class="logokemasan">	
+				<img src="logokemasan.png" class="logo">
+			</div>
+
+			<nav>
+				<div class="navigasi">
+					<ul>
+						<li><a href="#home">Home</a></li>
+						<li><a href="#tentangkami">Tentang Kami</a></li>
+						<li><a href="#produk">Produk</a></li>
+						<li><a href="#hitung">Hitung</a></li>
+						<li><a href="#kontak">Kontak</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		
+	</header>
+
+	<article>
+		<div class="animasi-gambarutama">
+			<img src="banner.jpg" class="banner">
+		</div>
+
+		<div id="tentangkami" class="halaman-tentangkami">
+			<div class="tentangkami-gambar">
+				<img src="tentangkami.png">
+			</div>
+
+			<div class="tentangkami-teks">
+				<h2>KemasanCraft</h2>
+				<p>
+					KemasanCraft merupakan vendor specialis
+					pembuatan kemasan berbagai ukuran yang berlokasi di Cikokol,
+					Tangerang - Banten. Kami sudah memiliki pengalaman
+					yang luas dalam industri kemasan dan mampu memenuhi 
+					kebutuhan kemasan untuk berbagai sektor bisnis
+				</p>
+			</div>
+		</div>
+
+		<div class="keunggulan">
+			<div class="box-keunggulan">
+				<img src="icon.png">
+				<p>Mesin Moderen sehingga menghasilkan<br>
+				produk yang berkualitas</p>
+			</div>
+
+			<div class="box-keunggulan">
+				<img src="icon.png">
+				<p>Pengiriman dan Distribusi yang cepat dan handal </p>
+			</div>
+
+			<div class="box-keunggulan">
+				<img src="icon.png">
+				<p>Desain kemasan kreatif dan sesuai dengan merek dan produk</p>
+			</div>
+
+			<div class="box-keunggulan">
+				<img src="icon.png">
+				<p>Bebas custom ukuran dan lainnya dengan proses cepat</p>
+			</div>
+		</div>
+
+		<div class="galery-produk">
+			<div class="keterangan-galery-produk">
+				<h2>Produk dan Layanan KemasanCraft</h2>
+				<p>---------------------------------------------------------------------------------------------------------------------</p>
+				<p>Kami memproduksi Custom Kardus Karton Corrugated menyesuaikan dengan permintaan customer</p>
+			</div>
+
+		
+			<div id="produk" class="layout-produk">
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+
+				<div class="produk-card">
+					<img src="kardus-lembaran.png">
+					<h3>Kardus Lembaran</h3>
+					<a href="#" class="btn-info">Info Selengkapnya</a>
+				</div>
+			</div>
+		</div>
+		<section id="hitung" class="halaman-hitung">
+			<div class="hitung-container">
+
+				<h1>Hitung Estimasi Biaya Kemasan Anda</h1><br><br><br>
+
+				 <label>Jenis Kardus:</label>
+    				<select id="jenisKardus" onchange="updateUkuran()">
+    					<option value="">-- Pilih Jenis Kardus --</option>
+    				 	<option value="lembaran">Kardus Lembaran</option>
+      					<option value="shipping">Kardus Shipping</option>
+      					<option value="arsip">Kardus Arsip</option>
+    				</select><br>
+
+    			 <label>Ukuran Kardus:</label>
+    				<select id="ukuranKardus">
+    					<option value="">-- Pilih Ukuran Kardus yang tersedia --</option>
+    				</select><br>
+
+				<label>Jumlah Kemasan (pcs):</label>
+  				<input type="number" id="jumlah"><br>
+
+  				<label>Harga per kemasan (Rp):</label>
+  				<input type="number" id="bahan" onchange="updateHargaPerKemasan()"><br>
+
+  				 <label>Tujuan Pengiriman:</label>
+    				<select id="tujuan" onchange="updateBiayaKirim()">
+    					 <option value="">-- Pilih Kota --</option>
+     				    <option value="tangerang">Cikokol</option>
+      					<option value="jakarta">Tangerang Kota</option>
+      					<option value="bandung">Karawachi</option>
+      					<option value="surabaya">Gading Serpong</option>
+   				 	</select><br><br>
+
+  				<label>Biaya Pengiriman (Rp):</label>
+  				<input type="number" id="biayapengiriman"><br>
+
+  				
+
+
+  				<button onclick="hitungHarga()">Hitung</button>
+
+  				<div id="hasil"></div>
+				<button onclick="cetakInvoice()">Cetak Invoice</button>
+			</div>
+
+
+		</section>
+
+		
+
+	</article>
+
+	<footer>
+
+		<div id="kontak" class="halaman-kontak">
+
+			<div class="page-1">
+				<img src="logokemasan.png">
+			</div>
+
+			<div class="page-2">
+				<p>
+					KemasanCraft merupakan vendor specialis
+					pembuatan kemasan berbagai ukuran yang berlokasi di Cikokol,
+					Tangerang - Banten. Kami sudah memiliki pengalaman
+					yang luas dalam industri kemasan dan mampu memenuhi 
+					kebutuhan kemasan untuk berbagai sektor bisnis
+				</p>
+			</div>
+
+			<div class="page-3">
+				<h2>Kontak Kami</h2>
+
+				<div class="page3-kontak">
+					<img src="wa.png">
+					<h2>0856-0181-6461</h2>
+				</div>
+
+				<div class="page3-kontak">
+					<img src="telp.png">
+					<h2>021-3455-2112</h2>
+				</div>
+
+				<div class="page3-kontak">
+					<img src="email.png">
+					<h2>alekkurniawan2302@gmail.com</h2>
+				</div>
+			</div>
+
+			<div class="page-4">
+				<h2>Lokasi Kami</h2><br>
+					<div class="maps">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.444442317908!2d106.62634947497798!3d-6.202011493785774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb9b9983e5a3%3A0x38e1955ab65a9d92!2sCikokol%2C%20Kota%20Tangerang!5e0!3m2!1sid!2sid!4v1697811123456!5m2!1sid!2sid" width="250" height="150"></iframe>
+					<p>Alamat : Jl.Musholla No.57 Rt.4 Rw.4 Kelurahan Cikokol - Tangerang</p>
+					</div>
+			</div>
+		</div>
+
+		<div class="halaman-hakcipta">
+			<p>Copyright © 2023 KemasanCraft. All Rights Reserved.
+				Designed & Developed by Mr.Aleksandrus setia kurniawan</p>
+		</div>
+
+
+	</footer>
+
+	<!-- Tombol WhatsApp Floating -->
+		<a href="https://wa.me/6285601816461" class="whatsapp-float" target="_blank">
+  		<img src="wa.png" alt="WhatsApp">
+		</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+.hitung-container {
+  width: 300px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: Arial;
+}
+
+.hitung-container input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.hitung-container button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hitung-container button:hover {
+  background-color: #0056b3;
+}
+
+#hasil {
+  margin-top: 15px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}

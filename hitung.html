@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hitung Kemasan</title>
+	<link rel="stylesheet" type="text/css" href="style-hitung.css">
+
+	<script>
+function hitungHarga() {
+  let jumlah = parseFloat(document.getElementById("jumlah").value) || 1;
+  let bahan = parseFloat(document.getElementById("bahan").value) || 0;
+  let biayapengiriman = parseFloat(document.getElementById("biayapengiriman").value) || 0;
+
+  
+
+  let total = jumlah*bahan*biayapengiriman;
+  let perKemasan = total / jumlah;
+
+  document.getElementById("hasil").innerHTML = `
+    <p><strong>Total Biaya:</strong> Rp ${total.toLocaleString()}</p>
+    
+  `;
+}
+</script>
+</head>
+<body>
+
+	<div class="hitung-container">
+
+		<label>Jumlah Kemasan (pcs):</label>
+  		<input type="number" id="jumlah">
+
+  		<label>Harga per kemasan (Rp):</label>
+  		<input type="number" id="bahan">
+
+  		<label>Biaya Pengiriman (Rp):</label>
+  		<input type="number" id="biayapengiriman">
+
+  		<button onclick="hitungHarga()">Hitung</button>
+
+  		<div id="hasil"></div>
+	</div>
+
+
+</body>
+</html>
